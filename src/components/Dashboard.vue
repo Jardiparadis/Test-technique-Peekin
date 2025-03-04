@@ -10,7 +10,6 @@
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
   import {useCustomerReviewStore} from "../stores/customerReview.ts";
   import {useLostAndReturnedObjectsByMonthStore} from "../stores/lostAndReturnedObjectsByMonth.ts";
-  import {useCustomerResponseTimeStore} from "../stores/customerResponseTime.ts";
 
   //
   const savedTimeStatsStore = useSavedTimeStatsStore();
@@ -113,7 +112,7 @@
   });
 
   //
-  const customerResponseTimeStore = useCustomerResponseTimeStore();
+  const customerResponseTimeStore = useCustomerResponseStore();
   const customerResponseTimeChartData = computed(() => {
     const chartData = {
       labels: ['< 1h', '< 2h', '< 6h', '< 12h', '< 24h', '> 24h'],
@@ -125,12 +124,12 @@
         }
       ]
     };
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanOneHour);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanTwoHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanSixHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanTwelveHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesMoreThanTwentyFourHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanTwentyFourHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanOneHour);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanTwoHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanSixHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanTwelveHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanTwentyFourHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInMoreThanTwentyFourHours);
 
     return chartData;
   });
