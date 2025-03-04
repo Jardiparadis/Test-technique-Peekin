@@ -5,9 +5,12 @@
   import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
   import PieChartWidget from "./PieChartWidget.vue";
   import BarChartWidget from "./BarChartWidget.vue";
+  import {useSavedTimeStatsStore} from "../stores/savedTimeStats.ts";
 
   const savedTime = ref('');
+  const baseTime = ref('');
   const store = useLostObjectsByMonthStore();
+
 
   onMounted(() => {
     savedTime.value = '16 j 12 h 45 min';
@@ -16,6 +19,11 @@
       {month: 'Février', nbLostObjects: 12},
       {month: 'Mars'   , nbLostObjects: 9}
     ]);
+
+    const savedTimeStore = useSavedTimeStatsStore();
+    savedTime.value = savedTimeStore.savedTime;
+    baseTime.value = savedTimeStore.baseTime;
+
   });
 
   const pieOptions = {
@@ -67,7 +75,7 @@
       <div style="margin-top: 1rem;">
         Temps de traitement estimé sans Keep'in:
         <div class="font-weight-bold text-h6">
-          32j 18h 20 min
+          {{ baseTime }}
         </div>
       </div>
     </TextWidget>
@@ -80,16 +88,20 @@
       <v-btn>Voir les derniers avis</v-btn>
     </TextWidget>
 
-    <PieChartWidget title="Objets restitués" :options="pieOptions" :data="pieData" icon="mdi-handshake-outline" class="returned-objects-widget"></PieChartWidget>
+    <PieChartWidget title="Objets restitués" :options="pieOptions" :data="pieData" icon="mdi-handshake-outline" class="returned-objects-widget">
+    </PieChartWidget>
 
     <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" class="response-time-widget">
     </LineChartWidget>
 
-    <BarChartWidget title="Avis laissés" :data="barData" :options="barOptions" icon="mdi-star-outline" class="reviews-widget"></BarChartWidget>
+    <BarChartWidget title="Avis laissés" :data="barData" :options="barOptions" icon="mdi-star-outline" class="reviews-widget">
+    </BarChartWidget>
 
-    <PieChartWidget title="Taux de réponses" :options="pieOptions" :data="pieData" icon="mdi-message-alert-outline" class="response-rate-widget"></PieChartWidget>
+    <PieChartWidget title="Taux de réponses" :options="pieOptions" :data="pieData" icon="mdi-message-alert-outline" class="response-rate-widget">
+    </PieChartWidget>
 
-    <PieChartWidget title="Types d'objets oubliés" :options="pieOptions" :data="pieData" icon="mdi-briefcase-outline" class="object-types-widget"></PieChartWidget>
+    <PieChartWidget title="Types d'objets oubliés" :options="pieOptions" :data="pieData" icon="mdi-briefcase-outline" class="object-types-widget">
+    </PieChartWidget>
 
   </div>
 </template>
