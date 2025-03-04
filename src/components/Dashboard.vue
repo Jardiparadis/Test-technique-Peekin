@@ -2,67 +2,64 @@
   import { ref, onMounted, computed } from 'vue';
   import TextWidget from './TextWidget.vue';
   import LineChartWidget from './LineChartWidget.vue';
-  import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
   import PieChartWidget from "./PieChartWidget.vue";
   import BarChartWidget from "./BarChartWidget.vue";
   import {useSavedTimeStatsStore} from "../stores/savedTimeStats.ts";
   import {useReturnedObjectsStore} from "../stores/returnedObjects.ts";
+  import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
+  import {useCustomerResponseStore} from "../stores/customerResponse.ts";
 
-  const savedTime = ref('');
-  const baseTime = ref('');
-  const store = useLostObjectsByMonthStore();
+  //
+  const savedTimeStatsStore = useSavedTimeStatsStore();
 
-  const returnedObjects = ref(0);
-  const registeredObjects = ref(0);
+  //
+  const returnedObjectsStore = useReturnedObjectsStore();
   const returnedObjectsPieChartData = computed(() => {
     return {
       labels: ['Objets restitués', 'Objets non réclamés'],
       datasets: [
         {
-          backgroundColor: ['#89ac76', '#f87979'],
-          data: [returnedObjects.value, registeredObjects.value - returnedObjects.value]
+          backgroundColor: ['#8cc640', '#d52027'],
+          data: [returnedObjectsStore.totalReturnedObjects, returnedObjectsStore.totalRegisteredObjects - returnedObjectsStore.totalReturnedObjects]
         }
       ]
     }
   });
+
+  //
+  const objectTypesStore = useObjectsTypesStore();
+  const objectsTypesPieChartData = computed(() => {
+    return {
+      labels: ['Léger', 'Moyen', 'Lourd', 'Fragile'],
+      datasets: [
+        {
+          backgroundColor: ['#2357bc', '#8cc640', '#fbb40f', '#d52027'],
+          data: [objectTypesStore.light, objectTypesStore.medium, objectTypesStore.heavy, objectTypesStore.fragile]
+        }
+      ]
+    }
+  });
+
+  //
+  const customerResponseStore = useCustomerResponseStore();
+  const responseRatePieChartData = computed(() => {
+    return {
+      labels: ['Réponses reçues', 'Clients avertis'],
+      datasets: [
+        {
+          backgroundColor: ['#8cc640', '#d52027'],
+          data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomerWarned - customerResponseStore.nbResponseReceived]
+        }
+      ]
+    }
+  });
+
 
   const widgetOptions = {
     responsive: true,
     maintainAspectRatio: false,
     animation: { duration: 0 } // Animation is removed to avoid stuttering when mounting
   };
-
-  onMounted(() => {
-    savedTime.value = '16 j 12 h 45 min';
-    store.update([
-      {month: 'Janvier', nbLostObjects: 23},
-      {month: 'Février', nbLostObjects: 12},
-      {month: 'Mars'   , nbLostObjects: 9}
-    ]);
-
-    const savedTimeStore = useSavedTimeStatsStore();
-    savedTime.value = savedTimeStore.savedTime;
-    baseTime.value = savedTimeStore.baseTime;
-
-    const returnedObjectsStore = useReturnedObjectsStore();
-    returnedObjects.value = returnedObjectsStore.totalReturnedObjects;
-    registeredObjects.value = returnedObjectsStore.totalRegisteredObjects;
-  });
-
-  const pieOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: { duration: 0 } // Animation is removed to avoid stuttering when mounting
-  };
-  const pieData = {
-    labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
-    datasets: [
-      {
-        backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-        data: [40, 20, 80, 10]
-      }
-    ]
-  }
 
   const barOptions = {
     responsive: true,
@@ -93,12 +90,12 @@
 
     <TextWidget title="Temps gagné" icon="mdi-timer-check-outline" class="time-saved-widget">
       <div class="font-weight-bold text-h5 mt-4">
-        {{ savedTime }}
+        {{ savedTimeStatsStore.savedTime }}
       </div>
       <div class="mt-8">
         Temps de traitement estimé sans Keep'in:
         <div class="font-weight-bold text-h6">
-          {{ baseTime }}
+          {{ savedTimeStatsStore.baseTime }}
         </div>
       </div>
     </TextWidget>
@@ -111,7 +108,13 @@
       <v-btn>Voir les derniers avis</v-btn>
     </TextWidget>
 
-    <PieChartWidget title="Objets restitués" :subtitle="registeredObjects + ' objets enregistrés'" :options="widgetOptions" :data="returnedObjectsPieChartData" icon="mdi-handshake-outline" class="returned-objects-widget">
+    <PieChartWidget
+        title="Objets restitués"
+        :subtitle="returnedObjectsStore.totalRegisteredObjects + ' objets enregistrés'"
+        :options="widgetOptions"
+        :data="returnedObjectsPieChartData"
+        icon="mdi-handshake-outline"
+        class="returned-objects-widget">
     </PieChartWidget>
 
     <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" class="response-time-widget">
@@ -120,10 +123,15 @@
     <BarChartWidget title="Avis laissés" :data="barData" :options="barOptions" icon="mdi-star-outline" class="reviews-widget">
     </BarChartWidget>
 
-    <PieChartWidget title="Taux de réponses" :options="pieOptions" :data="pieData" icon="mdi-message-alert-outline" class="response-rate-widget">
+    <PieChartWidget title="Taux de réponses" :options="widgetOptions" :data="responseRatePieChartData" icon="mdi-message-alert-outline" class="response-rate-widget">
     </PieChartWidget>
 
-    <PieChartWidget title="Types d'objets oubliés" :options="pieOptions" :data="pieData" icon="mdi-briefcase-outline" class="object-types-widget">
+    <PieChartWidget
+        title="Catégories d'objets oubliés"
+        :options="widgetOptions"
+        :data="objectsTypesPieChartData"
+        icon="mdi-briefcase-outline"
+        class="object-types-widget">
     </PieChartWidget>
 
   </div>
