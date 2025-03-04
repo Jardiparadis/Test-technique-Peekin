@@ -7,12 +7,16 @@ import {useCustomerResponseStore} from "./stores/customerResponse.ts";
 import {useCustomerReviewStore} from "./stores/customerReview.ts";
 import {useLostAndReturnedObjectsByMonthStore} from "./stores/lostAndReturnedObjectsByMonth.ts";
 
+import {getSavedTimeStats} from "./mock.ts";
+
 // Mock will be placed here
 onBeforeMount(() => {
-  setTimeout(() => {
-    const savedTimeStore = useSavedTimeStatsStore();
-    savedTimeStore.update('16 j 12 h 45 min', '32 j 18h 21 min');
+  const savedTimeStore = useSavedTimeStatsStore();
+  getSavedTimeStats().then((data) => {
+    savedTimeStore.update(data.savedTime, data.baseTime);
+  });
 
+  setTimeout(() => {
     const returnedObjectsStore = useReturnedObjectsStore();
     returnedObjectsStore.update(205, 234, [
       { month: 'Janvier', nbLostObjects: 52, nbReturnedObjects: 34 },
