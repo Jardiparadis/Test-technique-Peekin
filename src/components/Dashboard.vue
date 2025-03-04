@@ -72,22 +72,24 @@
       </div>
     </TextWidget>
 
-    <LineChartWidget title="Objets perdus et restitués par mois" icon="mdi-timer-check-outline" class="lost-objects-widget">
-
+    <LineChartWidget title="Objets perdus et restitués par mois" icon="mdi-hand-extended-outline" class="lost-objects-widget">
     </LineChartWidget>
 
-    <TextWidget title="Temps gagné" class="c">
-      <div style="font-weight: bold">
-        {{ savedTime }}
-      </div>
-      <div>
-        Temps de traitement estimé sans Keep'in: 32j 18h 20 min
-      </div>
+    <TextWidget title="-" class="buttons-widget">
+      <v-btn>Voir les dernières nouveautés</v-btn>
+      <v-btn>Voir les derniers avis</v-btn>
     </TextWidget>
 
-    <PieChartWidget title="Test" :options="pieOptions" :data="pieData" class="d"></PieChartWidget>
+    <PieChartWidget title="Objets restitués" :options="pieOptions" :data="pieData" icon="mdi-handshake-outline" class="returned-objects-widget"></PieChartWidget>
 
-    <BarChartWidget title="Test Bar" :data="barData" :options="barOptions" class="e"></BarChartWidget>
+    <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" class="response-time-widget">
+    </LineChartWidget>
+
+    <BarChartWidget title="Avis laissés" :data="barData" :options="barOptions" icon="mdi-star-outline" class="reviews-widget"></BarChartWidget>
+
+    <PieChartWidget title="Taux de réponses" :options="pieOptions" :data="pieData" icon="mdi-message-alert-outline" class="response-rate-widget"></PieChartWidget>
+
+    <PieChartWidget title="Types d'objets oubliés" :options="pieOptions" :data="pieData" icon="mdi-briefcase-outline" class="object-types-widget"></PieChartWidget>
 
   </div>
 </template>
@@ -99,8 +101,8 @@
   gap: 12px;
   grid-template-areas:
     "TimeSaved LostObjects LostObjects Buttons"
-    "RestituedObjects ResponseDelay ResponseDelay Reviews"
-    "Responses Types . .";
+    "ReturnedObjects ResponseTime ResponseTime Reviews"
+    "ResponseRate ObjectTypes . .";
 }
 
 .time-saved-widget {
@@ -111,15 +113,27 @@
   grid-area: LostObjects;
 }
 
-.c {
+.buttons-widget {
   grid-area: Buttons;
 }
 
-.d {
-  grid-area: RestituedObjects;
+.returned-objects-widget {
+  grid-area: ReturnedObjects;
 }
 
-.e {
+.response-time-widget {
+  grid-area: ResponseTime;
+}
+
+.reviews-widget {
   grid-area: Reviews;
+}
+
+.response-rate-widget {
+  grid-area: ResponseRate;
+}
+
+.object-types-widget {
+  grid-area: ObjectTypes;
 }
 </style>
