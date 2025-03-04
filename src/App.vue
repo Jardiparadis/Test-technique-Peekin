@@ -6,6 +6,7 @@ import {useObjectsTypesStore} from "./stores/objectsTypes.ts";
 import {useCustomerResponseStore} from "./stores/customerResponse.ts";
 import {useCustomerReviewStore} from "./stores/customerReview.ts";
 import {useLostAndReturnedObjectsByMonthStore} from "./stores/lostAndReturnedObjectsByMonth.ts";
+import {useCustomerResponseTimeStore} from "./stores/customerResponseTime.ts";
 
 // TODO Widget Mixin
 
@@ -41,7 +42,10 @@ onBeforeMount(() => {
           { nbReturnedObjects: 5, nbLostObjects: 3, month: 'Mai'},
           { nbReturnedObjects: 2, nbLostObjects: 9, month: 'Juin'},
         ]
-    )
+    );
+
+    const customerResponseTimeStore = useCustomerResponseTimeStore();
+    customerResponseTimeStore.update(120, 80, 24, 10, 4, 2);
   }, 2000)
 });
 </script>

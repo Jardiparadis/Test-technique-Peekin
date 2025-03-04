@@ -10,6 +10,7 @@
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
   import {useCustomerReviewStore} from "../stores/customerReview.ts";
   import {useLostAndReturnedObjectsByMonthStore} from "../stores/lostAndReturnedObjectsByMonth.ts";
+  import {useCustomerResponseTimeStore} from "../stores/customerResponseTime.ts";
 
   //
   const savedTimeStatsStore = useSavedTimeStatsStore();
@@ -111,6 +112,30 @@
     return chartData;
   });
 
+  //
+  const customerResponseTimeStore = useCustomerResponseTimeStore();
+  const customerResponseTimeChartData = computed(() => {
+    const chartData = {
+      labels: ['< 1h', '< 2h', '< 6h', '< 12h', '< 24h', '> 24h'],
+      datasets: [
+        {
+          label: 'Temps de réponse des clients',
+          backgroundColor: '#07b151',
+          data: [] as number[]
+        }
+      ]
+    };
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanOneHour);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanTwoHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanSixHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanTwelveHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesMoreThanTwentyFourHours);
+    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesLessThanTwentyFourHours);
+
+    return chartData;
+  });
+
+
   const widgetOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -144,7 +169,12 @@
       </div>
     </TextWidget>
 
-    <LineChartWidget title="Objets perdus et restitués par mois" icon="mdi-hand-extended-outline" :data="lostObjectsByMonthChartData" :options="widgetOptions" class="lost-objects-widget" >
+    <LineChartWidget
+        title="Objets perdus et restitués par mois"
+        icon="mdi-hand-extended-outline"
+        :data="lostObjectsByMonthChartData"
+        :options="widgetOptions"
+        class="lost-objects-widget" >
     </LineChartWidget>
 
     <TextWidget title="-" class="buttons-widget">
@@ -161,7 +191,7 @@
         class="returned-objects-widget">
     </PieChartWidget>
 
-    <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" :data="lostObjectsByMonthChartData" :options="widgetOptions" class="response-time-widget" >
+    <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" :data="customerResponseTimeChartData" :options="widgetOptions" class="response-time-widget" >
     </LineChartWidget>
 
     <BarChartWidget
