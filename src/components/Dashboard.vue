@@ -1,16 +1,36 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, computed } from 'vue';
   import TextWidget from './TextWidget.vue';
   import LineChartWidget from './LineChartWidget.vue';
   import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
   import PieChartWidget from "./PieChartWidget.vue";
   import BarChartWidget from "./BarChartWidget.vue";
   import {useSavedTimeStatsStore} from "../stores/savedTimeStats.ts";
+  import {useReturnedObjectsStore} from "../stores/returnedObjects.ts";
 
   const savedTime = ref('');
   const baseTime = ref('');
   const store = useLostObjectsByMonthStore();
 
+  const returnedObjects = ref(0);
+  const registeredObjects = ref(0);
+  const returnedObjectsPieChartData = computed(() => {
+    return {
+      labels: ['Objets restitués', 'Objets non réclamés'],
+      datasets: [
+        {
+          backgroundColor: ['#89ac76', '#f87979'],
+          data: [returnedObjects.value, registeredObjects.value - returnedObjects.value]
+        }
+      ]
+    }
+  });
+
+  const widgetOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 0 } // Animation is removed to avoid stuttering when mounting
+  };
 
   onMounted(() => {
     savedTime.value = '16 j 12 h 45 min';
@@ -24,6 +44,9 @@
     savedTime.value = savedTimeStore.savedTime;
     baseTime.value = savedTimeStore.baseTime;
 
+    const returnedObjectsStore = useReturnedObjectsStore();
+    returnedObjects.value = returnedObjectsStore.totalReturnedObjects;
+    registeredObjects.value = returnedObjectsStore.totalRegisteredObjects;
   });
 
   const pieOptions = {
@@ -69,10 +92,10 @@
   <div class="grid">
 
     <TextWidget title="Temps gagné" icon="mdi-timer-check-outline" class="time-saved-widget">
-      <span class="font-weight-bold text-h5">
+      <div class="font-weight-bold text-h5 mt-4">
         {{ savedTime }}
-      </span>
-      <div style="margin-top: 1rem;">
+      </div>
+      <div class="mt-8">
         Temps de traitement estimé sans Keep'in:
         <div class="font-weight-bold text-h6">
           {{ baseTime }}
@@ -88,7 +111,7 @@
       <v-btn>Voir les derniers avis</v-btn>
     </TextWidget>
 
-    <PieChartWidget title="Objets restitués" :options="pieOptions" :data="pieData" icon="mdi-handshake-outline" class="returned-objects-widget">
+    <PieChartWidget title="Objets restitués" :subtitle="registeredObjects + ' objets enregistrés'" :options="widgetOptions" :data="returnedObjectsPieChartData" icon="mdi-handshake-outline" class="returned-objects-widget">
     </PieChartWidget>
 
     <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" class="response-time-widget">

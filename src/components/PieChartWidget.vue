@@ -6,26 +6,30 @@ import type { WidgetOption } from '../types/widgetOptions.ts';
 type PieWidgetData = {
   labels  : string[];
   datasets: PieWidgetDataset[];
-}
+};
 
 type PieWidgetDataset = {
   backgroundColor: string[];
   data           : number[];
-}
+};
 
 type PieWidgetProps = {
-  title   : string;
-  icon?   : string;
-  options : WidgetOption;
-  data    : PieWidgetData;
-}
+  title    : string;
+  subtitle?: string;
+  icon?    : string;
+  options  : WidgetOption;
+  data     : PieWidgetData;
+};
 
-const { title, icon, options, data } = defineProps<PieWidgetProps>();
+const { title, subtitle, icon, options, data } = defineProps<PieWidgetProps>();
 </script>
 
 <template>
   <v-card elevation="2" :title="title" :prepend-icon="icon">
     <v-divider></v-divider>
+    <v-card-subtitle>
+      {{ subtitle }}
+    </v-card-subtitle>
     <v-card-text>
       <Pie :data="data" :options="options" />
     </v-card-text>
