@@ -9,7 +9,6 @@
   import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
   import {useCustomerReviewStore} from "../stores/customerReview.ts";
-  import {useLostAndReturnedObjectsByMonthStore} from "../stores/lostAndReturnedObjectsByMonth.ts";
 
   //
   const savedTimeStatsStore = useSavedTimeStatsStore();
@@ -84,7 +83,7 @@
   });
 
   //
-  const lostObjectsByMonth = useLostAndReturnedObjectsByMonthStore();
+  const lostObjectsByMonth = useReturnedObjectsStore();
   const lostObjectsByMonthChartData = computed(() => {
     const chartData = {
       labels: [] as string[],
@@ -102,7 +101,7 @@
       ]
     };
 
-    for (const info of lostObjectsByMonth.lostAndReturnedObjectsByMonth) {
+    for (const info of lostObjectsByMonth.monthlyStats) {
       chartData.labels.push(info.month);
       chartData.datasets[0].data.push(info.nbLostObjects);
       chartData.datasets[1].data.push(info.nbReturnedObjects);

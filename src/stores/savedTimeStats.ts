@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 
 export const useSavedTimeStatsStore = defineStore('savedTimeStats', {
   state: () => ({
-    savedTime: '',
-    baseTime : ''
+    savedTime: '0 j 0 h 0 min',
+    baseTime : '0 j 0 h 0 min'
   }),
   actions: {
     update(savedTime: string, baseTime: string) {
