@@ -10,7 +10,7 @@ type BarWidgetData = {
 
 type BarWidgetDataset = {
   label          : string;
-  backgroundColor: string;
+  backgroundColor: string[];
   data           : number[];
 }
 

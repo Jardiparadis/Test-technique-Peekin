@@ -8,6 +8,7 @@
   import {useReturnedObjectsStore} from "../stores/returnedObjects.ts";
   import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
+  import {useCustomerReviewStore} from "../stores/customerReview.ts";
 
   //
   const savedTimeStatsStore = useSavedTimeStatsStore();
@@ -54,6 +55,32 @@
     }
   });
 
+  //
+  const customerReviewStore = useCustomerReviewStore();
+  const customerReviewBarChartData = computed(() => {
+    return {
+      labels: [
+        '5 étoile',
+        '4 étoiles',
+        '3 étoiles',
+        '2 étoiles',
+        '1 étoiles',
+      ],
+      datasets: [
+        {
+          label: '',
+          backgroundColor: ['#07b151', '#8cc640', '#fbb40f', '#f36621', '#d52027'],
+          data: [
+            customerReviewStore.nbFiveStars,
+            customerReviewStore.nbFourStars,
+            customerReviewStore.nbThreeStars,
+            customerReviewStore.nbTwoStars,
+            customerReviewStore.nbOneStar
+          ]
+        },
+      ]
+    }
+  });
 
   const widgetOptions = {
     responsive: true,
@@ -61,28 +88,16 @@
     animation: { duration: 0 } // Animation is removed to avoid stuttering when mounting
   };
 
-  const barOptions = {
+  const barWidgetOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    animation: { duration: 0 }
-  };
-  const barData = {
-    labels: [
-      '1 étoile',
-      '2 étoiles',
-      '3 étoiles',
-      '4 étoiles',
-      '5 étoiles',
-    ],
-    datasets: [
-      {
-        label: 'Data One',
-        backgroundColor: '#f87979',
-        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+    animation: { duration: 0 }, // Animation is removed to avoid stuttering when mounting
+    plugins: {
+      legend: {
+        display: false
       }
-    ]
-  }
-
+    }
+  };
 </script>
 
 <template>
@@ -120,10 +135,15 @@
     <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" class="response-time-widget">
     </LineChartWidget>
 
-    <BarChartWidget title="Avis laissés" :data="barData" :options="barOptions" icon="mdi-star-outline" class="reviews-widget">
+    <BarChartWidget title="Avis laissés par les clients" :data="customerReviewBarChartData" :options="barWidgetOptions" icon="mdi-star-outline" class="reviews-widget">
     </BarChartWidget>
 
-    <PieChartWidget title="Taux de réponses" :options="widgetOptions" :data="responseRatePieChartData" icon="mdi-message-alert-outline" class="response-rate-widget">
+    <PieChartWidget
+        title="Taux de réponses"
+        :options="widgetOptions"
+        :data="responseRatePieChartData"
+        icon="mdi-message-alert-outline"
+        class="response-rate-widget">
     </PieChartWidget>
 
     <PieChartWidget

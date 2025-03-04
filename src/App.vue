@@ -4,6 +4,9 @@ import {useSavedTimeStatsStore} from "./stores/savedTimeStats.ts";
 import {useReturnedObjectsStore} from "./stores/returnedObjects.ts";
 import {useObjectsTypesStore} from "./stores/objectsTypes.ts";
 import {useCustomerResponseStore} from "./stores/customerResponse.ts";
+import {useCustomerReviewStore} from "./stores/customerReview.ts";
+
+// TODO Widget Mixin
 
 // Mock will be placed here
 onBeforeMount(() => {
@@ -23,6 +26,9 @@ onBeforeMount(() => {
 
     const customerResponseStore = useCustomerResponseStore();
     customerResponseStore.update(54, 67);
+
+    const customerReviewStore = useCustomerReviewStore();
+    customerReviewStore.update(2, 5, 8, 17, 24);
   }, 2000)
 });
 </script>
