@@ -71,7 +71,7 @@ onMounted(() => {
       Objets perdus en stock: 11
     </v-card-subtitle>
     <v-card-text>
-      <Line :data="data" :options="{responsive: true, maintainAspectRatio: false }" />
+      <Line :data="data" :options="{responsive: true, maintainAspectRatio: false, animation: { duration: 0 }}" />
     </v-card-text>
   </v-card>
 </template>

@@ -4,6 +4,7 @@
   import LineChartWidget from './LineChartWidget.vue';
   import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
   import PieChartWidget from "./PieChartWidget.vue";
+  import BarChartWidget from "./BarChartWidget.vue";
 
   const savedTime = ref('');
   const store = useLostObjectsByMonthStore();
@@ -19,7 +20,8 @@
 
   const pieOptions = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    animation: { duration: 0 } // Animation is removed to avoid stuttering when mounting
   };
   const pieData = {
     labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
@@ -27,6 +29,28 @@
       {
         backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
         data: [40, 20, 80, 10]
+      }
+    ]
+  }
+
+  const barOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 0 }
+  };
+  const barData = {
+    labels: [
+      '1 étoile',
+      '2 étoiles',
+      '3 étoiles',
+      '4 étoiles',
+      '5 étoiles',
+    ],
+    datasets: [
+      {
+        label: 'Data One',
+        backgroundColor: '#f87979',
+        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
       }
     ]
   }
@@ -63,6 +87,8 @@
 
     <PieChartWidget title="Test" :options="pieOptions" :data="pieData" class="d"></PieChartWidget>
 
+    <BarChartWidget title="Test Bar" :data="barData" :options="barOptions" class="e"></BarChartWidget>
+
   </div>
 </template>
 
@@ -91,5 +117,9 @@
 
 .d {
   grid-area: RestituedObjects;
+}
+
+.e {
+  grid-area: Reviews;
 }
 </style>

@@ -22,7 +22,8 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
+  BarElement
 } from 'chart.js';
 
 ChartJS.register(
@@ -33,7 +34,8 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
+  BarElement
 );
 
 const pinia = createPinia();
