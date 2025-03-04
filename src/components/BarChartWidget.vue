@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, onMounted, computed } from 'vue';
 import { Bar } from 'vue-chartjs'
-
-type BarWidgetOption = {
-  responsive         : boolean;
-  maintainAspectRatio: boolean;
-};
+import type { WidgetOption } from '../types/widgetOptions.ts';
 
 type BarWidgetData = {
   labels  : string[];
@@ -21,7 +17,7 @@ type BarWidgetDataset = {
 type BarWidgetProps = {
   title   : string;
   icon?   : string;
-  options : BarWidgetOption;
+  options : WidgetOption;
   data    : BarWidgetData;
 }
 

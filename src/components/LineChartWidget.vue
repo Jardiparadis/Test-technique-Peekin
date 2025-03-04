@@ -2,6 +2,7 @@
 import { defineProps, ref, onMounted, computed } from 'vue';
 import { Line } from 'vue-chartjs'
 import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
+import type { WidgetOption } from '../types/widgetOptions.ts';
 
 type TextWidgetProps = {
   title: string;

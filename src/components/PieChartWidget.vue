@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, onMounted, computed } from 'vue';
 import { Pie } from 'vue-chartjs'
-
-type PieWidgetOption = {
-  responsive         : boolean;
-  maintainAspectRatio: boolean;
-};
+import type { WidgetOption } from '../types/widgetOptions.ts';
 
 type PieWidgetData = {
   labels  : string[];
@@ -20,7 +16,7 @@ type PieWidgetDataset = {
 type PieWidgetProps = {
   title   : string;
   icon?   : string;
-  options : PieWidgetOption;
+  options : WidgetOption;
   data    : PieWidgetData;
 }
 
