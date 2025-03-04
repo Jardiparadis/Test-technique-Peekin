@@ -3,6 +3,7 @@
   import TextWidget from './TextWidget.vue';
   import LineChartWidget from './LineChartWidget.vue';
   import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
+  import PieChartWidget from "./PieChartWidget.vue";
 
   const savedTime = ref('');
   const store = useLostObjectsByMonthStore();
@@ -15,6 +16,21 @@
       {month: 'Mars'   , nbLostObjects: 9}
     ]);
   });
+
+  const pieOptions = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  const pieData = {
+    labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+    datasets: [
+      {
+        backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+        data: [40, 20, 80, 10]
+      }
+    ]
+  }
+
 </script>
 
 <template>
@@ -45,6 +61,8 @@
       </div>
     </TextWidget>
 
+    <PieChartWidget title="Test" :options="pieOptions" :data="pieData" class="d"></PieChartWidget>
+
   </div>
 </template>
 
@@ -69,5 +87,9 @@
 
 .c {
   grid-area: Buttons;
+}
+
+.d {
+  grid-area: RestituedObjects;
 }
 </style>
