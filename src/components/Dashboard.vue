@@ -1,15 +1,25 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import TextWidget from './TextWidget.vue';
+  import LineChartWidget from './LineChartWidget.vue';
+  import { useLostObjectsByMonthStore } from '../stores/lostObjectsByMonth';
+
   const savedTime = ref('');
+  const store = useLostObjectsByMonthStore();
 
   onMounted(() => {
     savedTime.value = '16 j 12 h 45 min';
+    store.update([
+      {month: 'Janvier', nbLostObjects: 23},
+      {month: 'Février', nbLostObjects: 12},
+      {month: 'Mars'   , nbLostObjects: 9}
+    ]);
   });
 </script>
 
 <template>
   <div class="grid">
+
     <TextWidget title="Temps gagné" icon="mdi-timer-check-outline" class="time-saved-widget">
       <span class="font-weight-bold text-h5">
         {{ savedTime }}
@@ -22,14 +32,10 @@
       </div>
     </TextWidget>
 
-    <TextWidget title="Temps gagné" class="b">
-      <div style="font-weight: bold">
-        {{ savedTime }}
-      </div>
-      <div>
-        Temps de traitement estimé sans Keep'in: 32j 18h 20 min
-      </div>
-    </TextWidget>
+    <LineChartWidget title="Objets perdus et restitués par mois" icon="mdi-timer-check-outline" class="lost-objects-widget">
+
+    </LineChartWidget>
+
     <TextWidget title="Temps gagné" class="c">
       <div style="font-weight: bold">
         {{ savedTime }}
@@ -38,6 +44,7 @@
         Temps de traitement estimé sans Keep'in: 32j 18h 20 min
       </div>
     </TextWidget>
+
   </div>
 </template>
 
@@ -56,7 +63,7 @@
   grid-area: TimeSaved;
 }
 
-.b {
+.lost-objects-widget {
   grid-area: LostObjects;
 }
 
