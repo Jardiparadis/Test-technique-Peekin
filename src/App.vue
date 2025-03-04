@@ -6,44 +6,50 @@ import {useObjectsTypesStore} from "./stores/objectsTypes.ts";
 import {useCustomerResponseStore} from "./stores/customerResponse.ts";
 import {useCustomerReviewStore} from "./stores/customerReview.ts";
 
-import {getSavedTimeStats} from "./mock.ts";
+import {
+  getSavedTimeStatsFromAPI,
+  getReturnedObjectsFromAPI,
+  getObjectsTypesFromAPI,
+  getCustomerResponsesFromAPI,
+  getCustomersReviewsFromAPI
+} from "./mock.ts";
 
 // Mock will be placed here
 onBeforeMount(() => {
   const savedTimeStore = useSavedTimeStatsStore();
-  getSavedTimeStats().then((data) => {
+  const returnedObjectsStore = useReturnedObjectsStore();
+  const objectsTypesStore = useObjectsTypesStore();
+  const customerResponseStore = useCustomerResponseStore();
+  const customerReviewStore = useCustomerReviewStore();
+
+  getSavedTimeStatsFromAPI().then((data) => {
     savedTimeStore.update(data.savedTime, data.baseTime);
   });
 
-  setTimeout(() => {
-    const returnedObjectsStore = useReturnedObjectsStore();
-    returnedObjectsStore.update(205, 234, [
-      { nbReturnedObjects: 5, nbLostObjects: 3, month: 'Janvier'},
-      { nbReturnedObjects: 7, nbLostObjects: 8, month: 'Février'},
-      { nbReturnedObjects: 9, nbLostObjects: 1, month: 'Mars'},
-      { nbReturnedObjects: 4, nbLostObjects: 4, month: 'Avril'},
-      { nbReturnedObjects: 5, nbLostObjects: 3, month: 'Mai'},
-      { nbReturnedObjects: 2, nbLostObjects: 9, month: 'Juin'},
-    ]);
+  getReturnedObjectsFromAPI().then((data) => {
+    returnedObjectsStore.update(data.totalReturnedObjects, data.totalRegisteredObjects, data.monthlyStats);
+  });
 
-    const objectsTypesStore = useObjectsTypesStore();
-    objectsTypesStore.update(12, 24, 16, 4);
+  getObjectsTypesFromAPI().then((data) => {
+    objectsTypesStore.update(data.light, data.medium, data.heavy, data.fragile);
+  });
 
-    const customerResponseStore = useCustomerResponseStore();
+  getCustomerResponsesFromAPI().then((data) => {
     customerResponseStore.update(
-        54,
-        67,
-        120,
-        80,
-        24,
-        10,
-        4,
-        2
+        data.nbResponseReceived,
+        data.nbCustomerWarned,
+        data.nbResponsesLessThanOneHour,
+        data.nbResponsesLessThanTwoHours,
+        data.nbResponsesLessThanSixHours,
+        data.nbResponsesLessThanTwelveHours,
+        data.nbResponsesLessThanTwentyFourHours,
+        data.nbResponsesMoreThanTwentyFourHours
     );
+  });
 
-    const customerReviewStore = useCustomerReviewStore();
-    customerReviewStore.update(2, 5, 8, 17, 24);
-  }, 2000)
+  getCustomersReviewsFromAPI().then((data) => {
+    customerReviewStore.update(data.nbOneStar, data.nbTwoStars, data.nbThreeStars, data.nbFourStars, data.nbFiveStars);
+  });
 });
 </script>
 
