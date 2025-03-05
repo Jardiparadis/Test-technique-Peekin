@@ -194,6 +194,7 @@
 
     <BarChartWidget
         title="Avis laissés par les clients"
+        :subtitle="'Note moyenne: ' + customerReviewStore.getAverageNote + '/5'"
         :data="customerReviewBarChartData"
         :options="barWidgetOptions"
         icon="mdi-star-outline"

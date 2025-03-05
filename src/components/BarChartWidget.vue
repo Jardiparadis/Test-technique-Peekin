@@ -16,6 +16,7 @@ type BarWidgetDataset = {
 
 type BarWidgetProps = {
   title   : string;
+  subtitle?: string;
   icon?   : string;
   options : WidgetOption;
   data    : BarWidgetData;
@@ -27,6 +28,9 @@ const { title, icon, options, data } = defineProps<BarWidgetProps>();
 <template>
   <v-card elevation="2" :title="title" :prepend-icon="icon">
     <v-divider></v-divider>
+    <v-card-subtitle>
+      {{ subtitle }}
+    </v-card-subtitle>
     <v-card-text>
       <Bar :data="data" :options="options" />
     </v-card-text>
