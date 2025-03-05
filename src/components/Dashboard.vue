@@ -187,10 +187,10 @@
     </LineChartWidget>
 
     <div class="d-flex flex-column justify-center">
-      <v-btn class="ma-4" prepend-icon="mdi-bullhorn-outline" size="large" @click="goToNews">
+      <v-btn class="ma-4" prepend-icon="mdi-bullhorn-outline" size="large" @click="goToNews" id="news-button">
         Voir les dernières nouveautés
       </v-btn>
-      <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large" @click="goToReviews">
+      <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large" @click="goToReviews" id="reviews-button">
         Voir les derniers avis
       </v-btn>
     </div>
