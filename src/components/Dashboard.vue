@@ -175,10 +175,14 @@
         class="lost-objects-widget" >
     </LineChartWidget>
 
-    <TextWidget title="-" class="buttons-widget">
-      <v-btn>Voir les dernières nouveautés</v-btn>
-      <v-btn>Voir les derniers avis</v-btn>
-    </TextWidget>
+    <div class="d-flex flex-column justify-center">
+      <v-btn class="ma-4" prepend-icon="mdi-bullhorn-outline" size="large">
+        Voir les dernières nouveautés
+      </v-btn>
+      <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large">
+        Voir les derniers avis
+      </v-btn>
+    </div>
 
     <PieChartWidget
         title="Objets restitués"
@@ -189,7 +193,12 @@
         class="returned-objects-widget">
     </PieChartWidget>
 
-    <LineChartWidget title="Délai de réponse du client" icon="mdi-clock-time-eight-outline" :data="customerResponseTimeChartData" :options="widgetOptions" class="response-time-widget" >
+    <LineChartWidget
+        title="Délai de réponse du client"
+        icon="mdi-clock-time-eight-outline"
+        :data="customerResponseTimeChartData"
+        :options="widgetOptions"
+        class="response-time-widget" >
     </LineChartWidget>
 
     <BarChartWidget
@@ -226,9 +235,9 @@
   display: grid;
   gap: 12px;
   grid-template-areas:
-    "TimeSaved LostObjects LostObjects Buttons"
-    "ReturnedObjects Reviews ResponseRate ObjectTypes"
-    "ResponseTime ResponseTime . .";
+    "TimeSaved LostObjects LostObjects LostObjects Buttons"
+    "ReturnedObjects Reviews Reviews ResponseRate ObjectTypes"
+    "ResponseTime ResponseTime . . .";
   @media (max-width:801px)  {
     grid-template-areas:
       "TimeSaved"
