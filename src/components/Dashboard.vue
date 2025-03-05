@@ -227,8 +227,19 @@
   gap: 12px;
   grid-template-areas:
     "TimeSaved LostObjects LostObjects Buttons"
-    "ReturnedObjects ResponseTime ResponseTime Reviews"
-    "ResponseRate ObjectTypes . .";
+    "ReturnedObjects Reviews ResponseRate ObjectTypes"
+    "ResponseTime ResponseTime . .";
+  @media (max-width:801px)  {
+    grid-template-areas:
+      "TimeSaved"
+      "LostObjects"
+      "Buttons"
+      "ReturnedObjects"
+      "Reviews"
+      "ResponseRate"
+      "ObjectTypes"
+      "ResponseTime";
+  }
 }
 
 .time-saved-widget {
