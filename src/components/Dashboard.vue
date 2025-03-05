@@ -9,7 +9,8 @@
   import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
   import {useCustomerReviewStore} from "../stores/customerReview.ts";
-  import { useRouter } from 'vue-router';
+  import {useRouter} from 'vue-router';
+  import {colors} from "../colors.ts";
 
   const router = useRouter();
 
@@ -23,7 +24,7 @@
       labels: ['Objets restitués', 'Objets non réclamés'],
       datasets: [
         {
-          backgroundColor: ['#8cc640', '#d52027'],
+          backgroundColor: [colors.lightGreen, colors.red],
           data: [returnedObjectsStore.totalReturnedObjects, returnedObjectsStore.totalRegisteredObjects - returnedObjectsStore.totalReturnedObjects]
         }
       ]
@@ -37,7 +38,7 @@
       labels: ['Léger', 'Moyen', 'Lourd', 'Fragile'],
       datasets: [
         {
-          backgroundColor: ['#2357bc', '#8cc640', '#fbb40f', '#d52027'],
+          backgroundColor: [colors.blue, colors.lightGreen, colors.yellow, colors.red],
           data: [objectTypesStore.light, objectTypesStore.medium, objectTypesStore.heavy, objectTypesStore.fragile]
         }
       ]
@@ -51,7 +52,7 @@
       labels: ['Réponses reçues', 'Clients avertis mais n\'ayant pas répondu'],
       datasets: [
         {
-          backgroundColor: ['#8cc640', '#d52027'],
+          backgroundColor: [colors.lightGreen, colors.red],
           data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomerWarned - customerResponseStore.nbResponseReceived]
         }
       ]
@@ -72,7 +73,8 @@
       datasets: [
         {
           label: '',
-          backgroundColor: ['#07b151', '#8cc640', '#fbb40f', '#f36621', '#d52027'],
+          backgroundColor: [colors.green, colors.lightGreen, colors.yellow,
+            colors.orange, colors.red],
           data: [
             customerReviewStore.nbFiveStars,
             customerReviewStore.nbFourStars,
@@ -93,12 +95,12 @@
       datasets: [
         {
           label: 'Objets oubliés',
-          backgroundColor: '#d52027',
+          backgroundColor: colors.red,
           data: [] as number[]
         },
         {
           label: 'Objets restitués',
-          backgroundColor: '#07b151',
+          backgroundColor: colors.lightGreen,
           data: [] as number[]
         }
       ]
@@ -121,7 +123,7 @@
       datasets: [
         {
           label: 'Temps de réponse des clients',
-          backgroundColor: '#07b151',
+          backgroundColor: colors.lightGreen,
           data: [] as number[]
         }
       ]
