@@ -9,6 +9,9 @@
   import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
   import {useCustomerReviewStore} from "../stores/customerReview.ts";
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   //
   const savedTimeStatsStore = useSavedTimeStatsStore();
@@ -150,6 +153,14 @@
       }
     }
   };
+
+  function goToNews() {
+    router.push('/news');
+  }
+
+  function goToReviews() {
+    router.push('/reviews');
+  }
 </script>
 
 <template>
@@ -176,10 +187,10 @@
     </LineChartWidget>
 
     <div class="d-flex flex-column justify-center">
-      <v-btn class="ma-4" prepend-icon="mdi-bullhorn-outline" size="large">
+      <v-btn class="ma-4" prepend-icon="mdi-bullhorn-outline" size="large" @click="goToNews">
         Voir les dernières nouveautés
       </v-btn>
-      <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large">
+      <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large" @click="goToReviews">
         Voir les derniers avis
       </v-btn>
     </div>

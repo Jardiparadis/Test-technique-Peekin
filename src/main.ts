@@ -2,8 +2,9 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import './style.css';
 import App from './App.vue';
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createWebHistory, createRouter } from 'vue-router';
 import Dashboard from './components/Dashboard.vue';
+import Empty from './components/Empty.vue';
 
 // Vuetify
 import 'vuetify/styles';
@@ -50,10 +51,12 @@ const vuetify = createVuetify({
 // Vue router configuration
 const routes = [
   { path: '/', component: Dashboard },
+  { path: '/news', component: Empty },
+  { path: '/reviews', component: Empty }
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 
