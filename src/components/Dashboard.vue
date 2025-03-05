@@ -24,7 +24,7 @@
           data: [returnedObjectsStore.totalReturnedObjects, returnedObjectsStore.totalRegisteredObjects - returnedObjectsStore.totalReturnedObjects]
         }
       ]
-    }
+    };
   });
 
   //
@@ -38,7 +38,7 @@
           data: [objectTypesStore.light, objectTypesStore.medium, objectTypesStore.heavy, objectTypesStore.fragile]
         }
       ]
-    }
+    };
   });
 
   //
@@ -52,7 +52,7 @@
           data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomerWarned - customerResponseStore.nbResponseReceived]
         }
       ]
-    }
+    };
   });
 
   //
@@ -79,7 +79,7 @@
           ]
         },
       ]
-    }
+    };
   });
 
   //
