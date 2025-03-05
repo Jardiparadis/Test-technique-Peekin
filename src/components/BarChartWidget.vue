@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps, ref, onMounted, computed } from 'vue';
-import { Bar } from 'vue-chartjs'
-import type { WidgetOption } from '../types/widgetOptions.ts';
+import {defineProps} from 'vue';
+import {Bar} from 'vue-chartjs';
+import type {WidgetOption} from '../types/widgetOptions.ts';
 
 type BarWidgetData = {
   labels  : string[];

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, onMounted, computed } from 'vue';
+  import {computed} from 'vue';
   import TextWidget from './TextWidget.vue';
   import LineChartWidget from './LineChartWidget.vue';
   import PieChartWidget from "./PieChartWidget.vue";

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { defineProps, ref, onMounted, computed } from 'vue';
-import { Pie } from 'vue-chartjs'
+import {defineProps} from 'vue';
+import {Pie} from 'vue-chartjs';
 import type { WidgetOption } from '../types/widgetOptions.ts';
 
 type PieWidgetData = {

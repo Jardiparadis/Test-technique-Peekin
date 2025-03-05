@@ -50,12 +50,12 @@ const vuetify = createVuetify({
 // Vue router configuration
 const routes = [
   { path: '/', component: Dashboard },
-]
+];
 
 const router = createRouter({
   history: createMemoryHistory(),
   routes,
-})
+});
 
 app.use(router).use(pinia).use(vuetify);
 app.mount('#app');
