@@ -1,8 +1,10 @@
-export const colors = {
-  green: '#07b151',
-  lightGreen: '#8cc640',
-  red: '#d52027',
-  yellow: '#fbb40f',
-  blue: '#2357bc',
-  orange: '#f36621'
+import colors from 'vuetify/util/colors';
+
+export default {
+  green: colors.green.lighten1,
+  lightGreen: colors.lightGreen.lighten1,
+  red: colors.red.lighten1,
+  yellow: colors.yellow.lighten1,
+  blue: colors.blue.lighten1,
+  orange: colors.orange.lighten1
 };
