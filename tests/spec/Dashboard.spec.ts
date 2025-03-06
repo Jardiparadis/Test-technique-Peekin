@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils';
-import {beforeEach, expect, test} from 'vitest';
+import { beforeEach, expect, test } from 'vitest';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import Dashboard from '../../src/components/Dashboard.vue';
 import Empty from '../../src/components/Empty.vue';
-import {createRouter, createWebHistory, Router} from 'vue-router';
-import resize_observer_polyfill from "resize-observer-polyfill";
+import { createRouter, createWebHistory, Router } from 'vue-router';
+import resize_observer_polyfill from 'resize-observer-polyfill';
 import { createTestingPinia } from '@pinia/testing';
 import 'vitest-canvas-mock';
 
@@ -25,7 +25,7 @@ const routes = [
 
 let router: Router;
 
-describe('Test', () => {
+describe('Dashboard', () => {
   beforeEach(() => {
     router = createRouter({
       history: createWebHistory(),
