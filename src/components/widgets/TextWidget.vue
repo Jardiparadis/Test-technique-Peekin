@@ -6,6 +6,12 @@ type TextWidgetProps = {
   icon?: string;
 }
 
+/**
+ * Display a widget that should contains text that should be displayed in slot,
+ * so we have full control on the customization
+ * @prop title - Title that will be displayed in the widget header
+ * @prop icon - icon that will be displayed in the top left of the widget, in the header
+ */
 const { title, icon } = defineProps<TextWidgetProps>();
 </script>
 

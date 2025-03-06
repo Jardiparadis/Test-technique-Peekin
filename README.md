@@ -4,7 +4,8 @@ Projet réalisé avec Vue.js, Vuetify, Pinia, Vue Router.
 Les graphiques sont réalisés grâce à Chartjs.
 
 # Lancement de l'application
-`npm i`  
+`npm i`   
+puis  
 `npm run dev`
 
 # Lancement des tests
@@ -23,5 +24,5 @@ simulant une latence de 2s, et qui renvoient les données qui rempliront les sto
 - Un meilleur responsive
 - Possibilité de customiser les widgets, voir de les déplacer, les configurer
 - Mieux tester la partie création des graphiques
-- Créer nos propres styles de graphiques pour coller au style visuel du produit
-- Gestion de la localisation
+- Créer nos propres styles de graphiques pour coller au style visuel de l'entreprise
+- Internationalisation (gestion de plusieurs langues, c'est actuellement "hard-codé" en français)

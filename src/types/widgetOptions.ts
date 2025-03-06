@@ -1,7 +1,10 @@
+/**
+ * Option object from Chart.js
+ */
 export type WidgetOption = {
-  responsive         : boolean;
+  responsive: boolean;
   maintainAspectRatio: boolean;
-  animation          : {
+  animation: {
     duration: number;
   }
 };

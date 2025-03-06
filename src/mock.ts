@@ -1,5 +1,9 @@
 import type {monthStats} from "./stores/returnedObjects.ts";
 
+/**
+ * These functions are called to mock API calls
+ */
+
 type savedTimeStatsAPI = {
   savedTime: string;
   baseTime: string;
@@ -37,6 +41,9 @@ type customersReviewsAPI = {
   nbFiveStars : number
 };
 
+// Mocks timeout in ms
+const timeout = 2000;
+
 export function getSavedTimeStatsFromAPI() {
   return new Promise<savedTimeStatsAPI>((resolve) => {
     setTimeout(() => {
@@ -44,7 +51,7 @@ export function getSavedTimeStatsFromAPI() {
         savedTime: '16 j 12 h 45 min',
         baseTime: '32 j 18h 21 min'
       });
-    }, 2000);
+    }, timeout);
   });
 }
 
@@ -55,15 +62,15 @@ export function getReturnedObjectsFromAPI() {
         totalReturnedObjects: 205,
         totalRegisteredObjects: 234,
         monthlyStats: [
-          { nbReturnedObjects: 5, nbLostObjects: 3, month: 'Janvier'},
-          { nbReturnedObjects: 7, nbLostObjects: 8, month: 'Février'},
-          { nbReturnedObjects: 9, nbLostObjects: 1, month: 'Mars'},
-          { nbReturnedObjects: 4, nbLostObjects: 4, month: 'Avril'},
-          { nbReturnedObjects: 5, nbLostObjects: 3, month: 'Mai'},
-          { nbReturnedObjects: 2, nbLostObjects: 9, month: 'Juin'},
+          { nbReturnedObjects: 5, nbLostObjects: 3, month: 1},
+          { nbReturnedObjects: 7, nbLostObjects: 8, month: 2},
+          { nbReturnedObjects: 9, nbLostObjects: 1, month: 3},
+          { nbReturnedObjects: 4, nbLostObjects: 4, month: 4},
+          { nbReturnedObjects: 5, nbLostObjects: 3, month: 5},
+          { nbReturnedObjects: 2, nbLostObjects: 9, month: 6},
         ]
       });
-    }, 2000);
+    }, timeout);
   });
 }
 
@@ -76,7 +83,7 @@ export function getObjectsTypesFromAPI() {
         heavy: 16,
         fragile: 4
       });
-    }, 2000);
+    }, timeout);
   });
 }
 
@@ -93,7 +100,7 @@ export function getCustomerResponsesFromAPI() {
         nbResponsesLessThanTwentyFourHours: 4,
         nbResponsesMoreThanTwentyFourHours: 2
       });
-    }, 2000);
+    }, timeout);
   });
 }
 
@@ -107,6 +114,6 @@ export function getCustomersReviewsFromAPI() {
         nbFourStars : 17,
         nbFiveStars : 24
       });
-    }, 2000);
+    }, timeout);
   });
 }

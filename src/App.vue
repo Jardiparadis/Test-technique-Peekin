@@ -14,7 +14,7 @@ import {
   getCustomersReviewsFromAPI
 } from "./mock.ts";
 
-// Mock will be placed here
+// Call mock functions
 onBeforeMount(() => {
   const savedTimeStore = useSavedTimeStatsStore();
   const returnedObjectsStore = useReturnedObjectsStore();

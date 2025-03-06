@@ -1,24 +1,34 @@
 <script setup lang="ts">
-  import {computed} from 'vue';
+  import { computed } from 'vue';
   import TextWidget from './widgets/TextWidget.vue';
   import LineChartWidget from './widgets/LineChartWidget.vue';
-  import PieChartWidget from "./widgets/PieChartWidget.vue";
-  import BarChartWidget from "./widgets/BarChartWidget.vue";
-  import {useSavedTimeStatsStore} from "../stores/savedTimeStats.ts";
-  import {useReturnedObjectsStore} from "../stores/returnedObjects.ts";
-  import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
-  import {useCustomerResponseStore} from "../stores/customerResponse.ts";
-  import {useCustomerReviewStore} from "../stores/customerReview.ts";
-  import {useRouter} from 'vue-router';
-  import colors from "../colors.ts";
-  import {Chart, type ChartDataset} from "chart.js";
+  import PieChartWidget from './widgets/PieChartWidget.vue';
+  import BarChartWidget from './widgets/BarChartWidget.vue';
+  import { useSavedTimeStatsStore } from '../stores/savedTimeStats.ts';
+  import { useReturnedObjectsStore } from '../stores/returnedObjects.ts';
+  import { useObjectsTypesStore } from '../stores/objectsTypes.ts';
+  import { useCustomerResponseStore } from '../stores/customerResponse.ts';
+  import { useCustomerReviewStore } from '../stores/customerReview.ts';
+  import { useRouter } from 'vue-router';
+  import colors from '../colors.ts';
+  import { Chart, type ChartDataset } from 'chart.js';
 
   const router = useRouter();
+
+  /**
+   * Convert a month number into its name, translated accord to the local parameter.
+   * Ex: 1 -> January...
+   * @param monthNumber Number of the month to translate
+   * @param locale locale used for translation
+   */
+  function convertMonthNumberToName(monthNumber: number, locale: string) {
+    return Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date('' + monthNumber));
+  }
 
   //
   const savedTimeStatsStore = useSavedTimeStatsStore();
 
-  //
+  // Format data to be passed to charts about returned objects
   const returnedObjectsStore = useReturnedObjectsStore();
   const returnedObjectsPieChartData = computed(() => {
     return {
@@ -31,8 +41,33 @@
       ]
     };
   });
+  const lostObjectsByMonthChartData = computed(() => {
+    const chartData = {
+      labels: [] as string[],
+      datasets: [
+        {
+          label: 'Objets oubliés',
+          backgroundColor: colors.red,
+          data: [] as number[]
+        },
+        {
+          label: 'Objets restitués',
+          backgroundColor: colors.lightGreen,
+          data: [] as number[]
+        }
+      ]
+    };
 
-  //
+    for (const info of returnedObjectsStore.monthlyStats) {
+      chartData.labels.push(convertMonthNumberToName(info.month, 'fr'));
+      chartData.datasets[0].data.push(info.nbLostObjects);
+      chartData.datasets[1].data.push(info.nbReturnedObjects);
+    }
+
+    return chartData;
+  });
+
+  // Format data to be passed to chart about objects types
   const objectTypesStore = useObjectsTypesStore();
   const objectsTypesPieChartData = computed(() => {
     return {
@@ -46,7 +81,7 @@
     };
   });
 
-  //
+  // Format data to be passed to charts about customers responses
   const customerResponseStore = useCustomerResponseStore();
   const responseRatePieChartData = computed(() => {
     return {
@@ -59,8 +94,28 @@
       ]
     };
   });
+  const customerResponseTimeChartData = computed(() => {
+    const chartData = {
+      labels: ['< 1h', '< 2h', '< 6h', '< 12h', '< 24h', '> 24h'],
+      datasets: [
+        {
+          label: 'Temps de réponse des clients',
+          backgroundColor: colors.lightGreen,
+          data: [] as number[]
+        }
+      ]
+    };
+    chartData.datasets[0].data.push(customerResponseStore.nbResponsesInLessThanOneHour);
+    chartData.datasets[0].data.push(customerResponseStore.nbResponsesInLessThanTwoHours);
+    chartData.datasets[0].data.push(customerResponseStore.nbResponsesInLessThanSixHours);
+    chartData.datasets[0].data.push(customerResponseStore.nbResponsesInLessThanTwelveHours);
+    chartData.datasets[0].data.push(customerResponseStore.nbResponsesInLessThanTwentyFourHours);
+    chartData.datasets[0].data.push(customerResponseStore.nbResponsesInMoreThanTwentyFourHours);
 
-  //
+    return chartData;
+  });
+
+  //Format data to be passed to chart about customers reviews
   const customerReviewStore = useCustomerReviewStore();
   const customerReviewBarChartData = computed(() => {
     return {
@@ -88,64 +143,14 @@
     };
   });
 
-  //
-  const lostObjectsByMonth = useReturnedObjectsStore();
-  const lostObjectsByMonthChartData = computed(() => {
-    const chartData = {
-      labels: [] as string[],
-      datasets: [
-        {
-          label: 'Objets oubliés',
-          backgroundColor: colors.red,
-          data: [] as number[]
-        },
-        {
-          label: 'Objets restitués',
-          backgroundColor: colors.lightGreen,
-          data: [] as number[]
-        }
-      ]
-    };
-
-    for (const info of lostObjectsByMonth.monthlyStats) {
-      chartData.labels.push(info.month);
-      chartData.datasets[0].data.push(info.nbLostObjects);
-      chartData.datasets[1].data.push(info.nbReturnedObjects);
-    }
-
-    return chartData;
-  });
-
-  //
-  const customerResponseTimeStore = useCustomerResponseStore();
-  const customerResponseTimeChartData = computed(() => {
-    const chartData = {
-      labels: ['< 1h', '< 2h', '< 6h', '< 12h', '< 24h', '> 24h'],
-      datasets: [
-        {
-          label: 'Temps de réponse des clients',
-          backgroundColor: colors.lightGreen,
-          data: [] as number[]
-        }
-      ]
-    };
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanOneHour);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanTwoHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanSixHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanTwelveHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInLessThanTwentyFourHours);
-    chartData.datasets[0].data.push(customerResponseTimeStore.nbResponsesInMoreThanTwentyFourHours);
-
-    return chartData;
-  });
-
-
+  // Widget base options
   const widgetOptions = {
     responsive: true,
     maintainAspectRatio: false,
     animation: { duration: 0 } // Animation is removed to avoid stuttering when mounting
   };
 
+  // Bar chart specific options
   const barWidgetOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -157,6 +162,7 @@
     }
   };
 
+  // Pie chart specific options
   const pieWidgetOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -164,7 +170,7 @@
     plugins: {
       legend: {
         labels: {
-          generateLabels: (chart: Chart) => { // Customize labels to display the number in it
+          generateLabels: (chart: Chart) => { // Customize labels to display the represented number next to it
             const datasets = chart.data.datasets as ChartDataset[];
             return datasets[0].data.map((data, i) => ({
               text: `${data} ${(chart.data.labels as string[])[i]}`,
@@ -176,10 +182,12 @@
     }
   };
 
+  // Send to the /news route
   function goToNews() {
     router.push('/news');
   }
 
+  // Send to the /reviews route
   function goToReviews() {
     router.push('/reviews');
   }

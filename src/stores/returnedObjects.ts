@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 export type monthStats = {
-  month: string;
+  month: number;
   nbLostObjects: number;
   nbReturnedObjects: number;
 };

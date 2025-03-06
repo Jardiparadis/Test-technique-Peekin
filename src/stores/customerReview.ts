@@ -2,11 +2,11 @@ import { defineStore } from 'pinia';
 
 export const useCustomerReviewStore = defineStore('customerReview', {
   state: () => ({
-    nbOneStar   : 0,
-    nbTwoStars  : 0,
+    nbOneStar: 0,
+    nbTwoStars: 0,
     nbThreeStars: 0,
-    nbFourStars : 0,
-    nbFiveStars : 0
+    nbFourStars: 0,
+    nbFiveStars: 0
   }),
   getters: {
     getAverageNote(): number {
