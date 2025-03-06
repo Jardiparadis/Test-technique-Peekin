@@ -1,4 +1,4 @@
-import type {monthStats} from "./stores/returnedObjects.ts";
+import type { monthStats } from './stores/returnedObjectsStats.ts';
 
 /**
  * These functions are called to mock API calls
