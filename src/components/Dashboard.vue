@@ -1,16 +1,17 @@
 <script setup lang="ts">
   import {computed} from 'vue';
-  import TextWidget from './TextWidget.vue';
-  import LineChartWidget from './LineChartWidget.vue';
-  import PieChartWidget from "./PieChartWidget.vue";
-  import BarChartWidget from "./BarChartWidget.vue";
+  import TextWidget from './widgets/TextWidget.vue';
+  import LineChartWidget from './widgets/LineChartWidget.vue';
+  import PieChartWidget from "./widgets/PieChartWidget.vue";
+  import BarChartWidget from "./widgets/BarChartWidget.vue";
   import {useSavedTimeStatsStore} from "../stores/savedTimeStats.ts";
   import {useReturnedObjectsStore} from "../stores/returnedObjects.ts";
   import {useObjectsTypesStore} from "../stores/objectsTypes.ts";
   import {useCustomerResponseStore} from "../stores/customerResponse.ts";
   import {useCustomerReviewStore} from "../stores/customerReview.ts";
   import {useRouter} from 'vue-router';
-  import {colors} from "../colors.ts";
+  import colors from "../colors.ts";
+  import {Chart, type ChartDataset} from "chart.js";
 
   const router = useRouter();
 
@@ -156,6 +157,25 @@
     }
   };
 
+  const pieWidgetOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 0 }, // Animation is removed to avoid stuttering when mounting
+    plugins: {
+      legend: {
+        labels: {
+          generateLabels: (chart: Chart) => { // Customize labels to display the number in it
+            const datasets = chart.data.datasets as ChartDataset[];
+            return datasets[0].data.map((data, i) => ({
+              text: `${data} ${(chart.data.labels as string[])[i]}`,
+              fillStyle: (datasets[0].backgroundColor as string[])[i],
+            }));
+          }
+        }
+      }
+    }
+  };
+
   function goToNews() {
     router.push('/news');
   }
@@ -188,7 +208,7 @@
         class="lost-objects-widget" >
     </LineChartWidget>
 
-    <div class="d-flex flex-column justify-center">
+    <div class="d-flex flex-column justify-center buttons-widget">
       <v-btn class="ma-4" prepend-icon="mdi-bullhorn-outline" size="large" @click="goToNews" id="news-button">
         Voir les dernières nouveautés
       </v-btn>
@@ -200,7 +220,7 @@
     <PieChartWidget
         title="Objets restitués"
         :subtitle="returnedObjectsStore.totalRegisteredObjects + ' objets enregistrés'"
-        :options="widgetOptions"
+        :options="pieWidgetOptions"
         :data="returnedObjectsPieChartData"
         icon="mdi-handshake-outline"
         class="returned-objects-widget">
@@ -225,7 +245,7 @@
 
     <PieChartWidget
         title="Taux de réponses"
-        :options="widgetOptions"
+        :options="pieWidgetOptions"
         :data="responseRatePieChartData"
         icon="mdi-message-alert-outline"
         class="response-rate-widget">
@@ -233,7 +253,7 @@
 
     <PieChartWidget
         title="Catégories d'objets oubliés"
-        :options="widgetOptions"
+        :options="pieWidgetOptions"
         :data="objectsTypesPieChartData"
         icon="mdi-briefcase-outline"
         class="object-types-widget">

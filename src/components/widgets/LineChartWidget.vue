@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {defineProps} from 'vue';
 import {Line} from 'vue-chartjs';
-import type {WidgetOption} from '../types/widgetOptions.ts';
+import type {WidgetOption} from '../../types/widgetOptions.ts';
 
 type lineWidgetData = {
   labels: string[];
