@@ -22,7 +22,7 @@ simulant une latence de 2s, et qui renvoient les données qui rempliront les sto
 
 # Améliorations possibles
 - Un meilleur responsive
-- Possibilité de customiser les widgets, voir de les déplacer, les configurer
+- Possibilité de déplacer les widgets, et potentiellement pouvoir y appliquer des filtres ou les customiser
 - Mieux tester la partie création des graphiques
 - Créer nos propres styles de graphiques pour coller au style visuel de l'entreprise
 - Internationalisation (gestion de plusieurs langues, c'est actuellement "hard-codé" en français)
