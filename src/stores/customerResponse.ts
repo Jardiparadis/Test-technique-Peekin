@@ -11,6 +11,17 @@ export const useCustomerResponseStore = defineStore('customerResponse', {
     nbResponsesInLessThanTwentyFourHours: 0,
     nbResponsesInMoreThanTwentyFourHours: 0
   }),
+  getters: {
+    /**
+     * Get response rate in percent
+     */
+    getResponseRate(): number {
+      if (this.nbResponseReceived === 0) {
+        return 0;
+      }
+      return Math.round((this.nbResponseReceived / this.nbCustomerWarned) * 100);
+    }
+  },
   actions: {
     update(
       nbResponseReceived: number,

@@ -32,7 +32,7 @@
   const returnedObjectsStore = useReturnedObjectsStore();
   const returnedObjectsPieChartData = computed(() => {
     return {
-      labels: ['Objets restitués', 'Objets non réclamés'],
+      labels: ['Objets restitués', 'Objets trouvés non réclamés'],
       datasets: [
         {
           backgroundColor: [colors.lightGreen, colors.red],
@@ -71,7 +71,7 @@
   const objectTypesStore = useObjectsTypesStore();
   const objectsTypesPieChartData = computed(() => {
     return {
-      labels: ['Léger', 'Moyen', 'Lourd', 'Fragile'],
+      labels: ['Légers', 'Moyens', 'Lourds', 'Fragiles'],
       datasets: [
         {
           backgroundColor: [colors.blue, colors.lightGreen, colors.yellow, colors.red],
@@ -85,7 +85,7 @@
   const customerResponseStore = useCustomerResponseStore();
   const responseRatePieChartData = computed(() => {
     return {
-      labels: ['Réponses reçues', 'Clients avertis mais n\'ayant pas répondu'],
+      labels: ['Clients ayant répondu', 'Clients avertis mais n\'ayant pas répondu'],
       datasets: [
         {
           backgroundColor: [colors.lightGreen, colors.red],
@@ -99,7 +99,7 @@
       labels: ['< 1h', '< 2h', '< 6h', '< 12h', '< 24h', '> 24h'],
       datasets: [
         {
-          label: 'Temps de réponse des clients',
+          label: 'Délai de réponse des clients',
           backgroundColor: colors.lightGreen,
           data: [] as number[]
         }
@@ -244,7 +244,7 @@
 
     <BarChartWidget
         title="Avis laissés par les clients"
-        :subtitle="'Note moyenne: ' + customerReviewStore.getAverageNote + '/5'"
+        :subtitle="'Note moyenne: ' + customerReviewStore.getAverageNote + '/5 sur ' + customerReviewStore.getNbReviews + ' avis'"
         :data="customerReviewBarChartData"
         :options="barWidgetOptions"
         icon="mdi-star-outline"
@@ -253,6 +253,7 @@
 
     <PieChartWidget
         title="Taux de réponses"
+        :subtitle="'Taux de réponse: ' + customerResponseStore.getResponseRate + '%'"
         :options="pieWidgetOptions"
         :data="responseRatePieChartData"
         icon="mdi-message-alert-outline"
