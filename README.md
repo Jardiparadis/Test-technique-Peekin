@@ -26,3 +26,4 @@ simulant une latence de 2s, et qui renvoient les données qui rempliront les sto
 - Mieux tester la partie création des graphiques
 - Créer nos propres styles de graphiques pour coller au style visuel de l'entreprise
 - Internationalisation (gestion de plusieurs langues, c'est actuellement "hard-codé" en français)
+- Mieux mettre en valeur certaines statistiques "textuelles"
