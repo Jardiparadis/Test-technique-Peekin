@@ -5,10 +5,10 @@
   import PieChartWidget from './widgets/PieChartWidget.vue';
   import BarChartWidget from './widgets/BarChartWidget.vue';
   import { useSavedTimeStatsStore } from '../stores/savedTimeStats.ts';
-  import { useReturnedObjectsStore } from '../stores/returnedObjects.ts';
-  import { useObjectsTypesStore } from '../stores/objectsTypes.ts';
-  import { useCustomerResponseStore } from '../stores/customerResponse.ts';
-  import { useCustomerReviewStore } from '../stores/customerReview.ts';
+  import { useReturnedObjectsStatsStore } from '../stores/returnedObjectsStats.ts';
+  import { useObjectsTypesStatsStore } from '../stores/objectsTypesStats.ts';
+  import { useCustomerResponseStatsStore } from '../stores/customerResponseStats.ts';
+  import { useCustomerReviewStatsStore } from '../stores/customerReviewStats.ts';
   import { useRouter } from 'vue-router';
   import colors from '../colors.ts';
   import { Chart, type ChartDataset } from 'chart.js';
@@ -29,7 +29,7 @@
   const savedTimeStatsStore = useSavedTimeStatsStore();
 
   // Format data to be passed to charts about returned objects
-  const returnedObjectsStore = useReturnedObjectsStore();
+  const returnedObjectsStore = useReturnedObjectsStatsStore();
   const returnedObjectsPieChartData = computed(() => {
     return {
       labels: ['Objets restitués', 'Objets trouvés non réclamés'],
@@ -68,7 +68,7 @@
   });
 
   // Format data to be passed to chart about objects types
-  const objectTypesStore = useObjectsTypesStore();
+  const objectTypesStore = useObjectsTypesStatsStore();
   const objectsTypesPieChartData = computed(() => {
     return {
       labels: ['Légers', 'Moyens', 'Lourds', 'Fragiles'],
@@ -82,7 +82,7 @@
   });
 
   // Format data to be passed to charts about customers responses
-  const customerResponseStore = useCustomerResponseStore();
+  const customerResponseStore = useCustomerResponseStatsStore();
   const responseRatePieChartData = computed(() => {
     return {
       labels: ['Clients ayant répondu', 'Clients avertis mais n\'ayant pas répondu'],
@@ -116,7 +116,7 @@
   });
 
   //Format data to be passed to chart about customers reviews
-  const customerReviewStore = useCustomerReviewStore();
+  const customerReviewStore = useCustomerReviewStatsStore();
   const customerReviewBarChartData = computed(() => {
     return {
       labels: [

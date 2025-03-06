@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {onBeforeMount} from "vue";
-import {useSavedTimeStatsStore} from "./stores/savedTimeStats.ts";
-import {useReturnedObjectsStore} from "./stores/returnedObjects.ts";
-import {useObjectsTypesStore} from "./stores/objectsTypes.ts";
-import {useCustomerResponseStore} from "./stores/customerResponse.ts";
-import {useCustomerReviewStore} from "./stores/customerReview.ts";
+import { onBeforeMount } from "vue";
+import { useSavedTimeStatsStore } from "./stores/savedTimeStats.ts";
+import { useReturnedObjectsStatsStore } from "./stores/returnedObjectsStats.ts";
+import { useObjectsTypesStatsStore } from "./stores/objectsTypesStats.ts";
+import { useCustomerResponseStatsStore } from "./stores/customerResponseStats.ts";
+import { useCustomerReviewStatsStore } from "./stores/customerReviewStats.ts";
 
 import {
   getSavedTimeStatsFromAPI,
@@ -17,10 +17,10 @@ import {
 // Call mock functions
 onBeforeMount(() => {
   const savedTimeStore = useSavedTimeStatsStore();
-  const returnedObjectsStore = useReturnedObjectsStore();
-  const objectsTypesStore = useObjectsTypesStore();
-  const customerResponseStore = useCustomerResponseStore();
-  const customerReviewStore = useCustomerReviewStore();
+  const returnedObjectsStore = useReturnedObjectsStatsStore();
+  const objectsTypesStore = useObjectsTypesStatsStore();
+  const customerResponseStore = useCustomerResponseStatsStore();
+  const customerReviewStore = useCustomerReviewStatsStore();
 
   getSavedTimeStatsFromAPI().then((data) => {
     savedTimeStore.update(data.savedTime, data.baseTime);

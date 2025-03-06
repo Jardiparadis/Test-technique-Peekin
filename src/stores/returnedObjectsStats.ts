@@ -6,7 +6,7 @@ export type monthStats = {
   nbReturnedObjects: number;
 };
 
-export const useReturnedObjectsStore = defineStore('returnedObjects', {
+export const useReturnedObjectsStatsStore = defineStore('returnedObjectsStats', {
   state: () => ({
     totalReturnedObjects: 0,
     totalRegisteredObjects: 0,

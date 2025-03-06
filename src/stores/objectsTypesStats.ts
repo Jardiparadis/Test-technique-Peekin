@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useObjectsTypesStore = defineStore('objectsTypes', {
+export const useObjectsTypesStatsStore = defineStore('objectsTypesStats', {
   state: () => ({
     light: 0,
     medium: 0,

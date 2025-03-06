@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useCustomerReviewStore = defineStore('customerReview', {
+export const useCustomerReviewStatsStore = defineStore('customerReviewStats', {
   state: () => ({
     nbOneStar: 0,
     nbTwoStars: 0,
