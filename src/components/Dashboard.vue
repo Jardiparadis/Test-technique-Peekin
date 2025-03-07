@@ -216,7 +216,7 @@
         icon="mdi-hand-extended-outline"
         :data="lostObjectsByMonthChartData"
         :options="widgetOptions"
-        class="lost-objects-widget" >
+        class="lost-objects-widget">
     </LineChartWidget>
 
     <div class="d-flex flex-column justify-center buttons-widget">
