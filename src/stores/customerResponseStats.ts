@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export const useCustomerResponseStatsStore = defineStore('customerResponseStats', {
   state: () => ({
     nbResponseReceived: 0,
-    nbCustomerWarned: 0,
+    nbCustomersNotified: 0,
     nbResponsesInLessThanOneHour: 0,
     nbResponsesInLessThanTwoHours: 0,
     nbResponsesInLessThanSixHours: 0,
@@ -19,13 +19,13 @@ export const useCustomerResponseStatsStore = defineStore('customerResponseStats'
       if (this.nbResponseReceived === 0) {
         return 0;
       }
-      return Math.round((this.nbResponseReceived / this.nbCustomerWarned) * 100);
+      return Math.round((this.nbResponseReceived / this.nbCustomersNotified) * 100);
     }
   },
   actions: {
     update(
       nbResponseReceived: number,
-      nbCustomerWarned: number,
+      nbCustomersNotified: number,
       nbResponsesLessThanOneHour: number,
       nbResponsesLessThanTwoHours: number,
       nbResponsesLessThanSixHours: number,
@@ -33,7 +33,7 @@ export const useCustomerResponseStatsStore = defineStore('customerResponseStats'
       nbResponsesLessThanTwentyFourHours: number,
       nbResponsesMoreThanTwentyFourHours: number
     ) {
-      this.nbCustomerWarned = nbCustomerWarned;
+      this.nbCustomersNotified = nbCustomersNotified;
       this.nbResponseReceived = nbResponseReceived;
       this.nbResponsesInLessThanOneHour = nbResponsesLessThanOneHour;
       this.nbResponsesInLessThanTwoHours = nbResponsesLessThanTwoHours;
