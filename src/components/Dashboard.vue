@@ -89,7 +89,7 @@
       datasets: [
         {
           backgroundColor: [colors.lightGreen, colors.red],
-          data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomerWarned - customerResponseStore.nbResponseReceived]
+          data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomersNotified - customerResponseStore.nbResponseReceived]
         }
       ]
     };
