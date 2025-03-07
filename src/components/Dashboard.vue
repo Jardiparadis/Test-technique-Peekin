@@ -223,6 +223,9 @@
       <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large" @click="goToReviews" id="reviews-button">
         Voir les derniers avis
       </v-btn>
+      <v-btn class="ma-4" prepend-icon="mdi-briefcase-plus-outline" size="large" id="reviews-button">
+        Enregistrer un objet
+      </v-btn>
     </div>
 
     <PieChartWidget
