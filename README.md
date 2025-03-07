@@ -15,7 +15,7 @@ Les tests sont réalisés avec vue-test-utils et vitest
 # Approche
 La page a été pensée comme un dashboard: une grande grille composée de différents widgets,
 représentée par le composant `Dashboard`.  
-Ces widgets sont des composants Vuejs (trouvable dans `src/components`).
+Ces widgets sont des composants Vuejs (trouvable dans `src/components/widgets`).
 Ces derniers sont dépourvus de logique métier, et prennent donc leurs données via les props.  
 Les données sont récupérées par le composant Dashboard depuis les stores, qu'il transmet aux widgets.  
 Pour justifier l'utilisation des stores, ces deniers sont remplis depuis App, qui appelle des mocks de call API

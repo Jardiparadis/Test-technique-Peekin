@@ -37,7 +37,7 @@ onBeforeMount(() => {
   getCustomerResponsesFromAPI().then((data) => {
     customerResponseStore.update(
         data.nbResponseReceived,
-        data.nbCustomerWarned,
+        data.nbCustomersNotified,
         data.nbResponsesLessThanOneHour,
         data.nbResponsesLessThanTwoHours,
         data.nbResponsesLessThanSixHours,

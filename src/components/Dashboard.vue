@@ -89,7 +89,7 @@
       datasets: [
         {
           backgroundColor: [colors.lightGreen, colors.red],
-          data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomerWarned - customerResponseStore.nbResponseReceived]
+          data: [customerResponseStore.nbResponseReceived, customerResponseStore.nbCustomersNotified - customerResponseStore.nbResponseReceived]
         }
       ]
     };
@@ -213,7 +213,7 @@
         icon="mdi-hand-extended-outline"
         :data="lostObjectsByMonthChartData"
         :options="widgetOptions"
-        class="lost-objects-widget" >
+        class="lost-objects-widget">
     </LineChartWidget>
 
     <div class="d-flex flex-column justify-center buttons-widget">
@@ -222,6 +222,9 @@
       </v-btn>
       <v-btn class="ma-4" prepend-icon="mdi-star-check-outline" size="large" @click="goToReviews" id="reviews-button">
         Voir les derniers avis
+      </v-btn>
+      <v-btn class="ma-4" prepend-icon="mdi-briefcase-plus-outline" size="large" id="reviews-button">
+        Enregistrer un objet
       </v-btn>
     </div>
 
@@ -239,7 +242,7 @@
         icon="mdi-clock-time-eight-outline"
         :data="customerResponseTimeChartData"
         :options="widgetOptions"
-        class="response-time-widget" >
+        class="response-time-widget">
     </LineChartWidget>
 
     <BarChartWidget

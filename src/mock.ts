@@ -24,7 +24,7 @@ type objectsTypesAPI = {
 
 type customersResponsesAPI = {
   nbResponseReceived                : number,
-  nbCustomerWarned                  : number,
+  nbCustomersNotified                  : number,
   nbResponsesLessThanOneHour        : number,
   nbResponsesLessThanTwoHours       : number,
   nbResponsesLessThanSixHours       : number,
@@ -92,7 +92,7 @@ export function getCustomerResponsesFromAPI() {
     setTimeout(() => {
       resolve({
         nbResponseReceived                : 54,
-        nbCustomerWarned                  : 67,
+        nbCustomersNotified               : 67,
         nbResponsesLessThanOneHour        : 120,
         nbResponsesLessThanTwoHours       : 80,
         nbResponsesLessThanSixHours       : 24,
